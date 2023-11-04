@@ -8,11 +8,12 @@ function App() {
   return (
     <>
       <h1 className="text-3xl font-bold underline text-red-600">
-        Hello world!
+        Tailwind css working!
       </h1>
-      <img src={reactLogo} alt="" />
-      <Button>Button</Button>
-      <Input placeholder="Search" />
+      <div className='flex gap-2 mt-2'>
+        <Button>Button</Button>
+        <Input placeholder="Search" />
+      </div>
     </>
   );
 }
