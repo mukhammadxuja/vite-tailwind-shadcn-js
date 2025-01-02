@@ -6,12 +6,12 @@ Day 1: Project Setup
 tailwindcss (with PostCSS and autoprefixer). ✔️
 shadcn/ui. ✔️
 Firebase SDK.✔️
-State management library (Zustand or React Context). 
+State management library (Zustand or React Context). ✔️
  Configure Tailwind CSS:
 Initialize Tailwind and set up the tailwind.config.js. ✔️
 Add custom colors, spacing, and fonts as needed. ✔️
  Connect Firebase:
-Set up Firebase in the project and configure .env for keys.
+Set up Firebase in the project and configure .env for keys. ✔️
 Add Firebase services: Firestore, Auth, Hosting.
 
 Day 2: Authentication System
@@ -39,7 +39,7 @@ Day 4: CRUD Operations
 useCreateDocument, useFetchCollection, useUpdateDocument, and useDeleteDocument.
  Add a sample form to create and display a list of tasks.
 
-Day 5: UI Components Library
+Day 5: UI Components Library ✔️
  Build reusable shadcn components:
 Buttons, inputs, modals, dropdowns, and tooltips.
  Create notification toast system for success/error states.
