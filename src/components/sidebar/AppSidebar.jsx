@@ -1,10 +1,4 @@
-import React from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from '@/components/ui/sidebar';
+import * as React from 'react';
 import {
   AudioWaveform,
   BookOpen,
@@ -21,27 +15,16 @@ import {
 import {
   Sidebar,
   SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
+  SidebarFooter,
+  SidebarHeader,
+  SidebarRail,
 } from '@/components/ui/sidebar';
+import { TeamSwitcher } from './TeamSwitcher';
+import { NavMain } from './NavMain';
+import { NavProjects } from './NavProjects';
+import { NavUser } from './NavUser';
 
-import { Separator } from '@/components/ui/separator';
-
-import {
-  Breadcrumb,
-  BreadcrumbEllipsis,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb';
-import { AppSidebar } from '../sidebar/AppSidebar';
-
+// This is sample data.
 const data = {
   user: {
     name: 'shadcn',
@@ -171,39 +154,20 @@ const data = {
   ],
 };
 
-function DashboardLayout({ children }) {
+export function AppSidebar({ ...props }) {
   return (
-    <div>
-      <SidebarProvider>
-        <AppSidebar />
-        <SidebarInset>
-          <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
-            <div className="flex items-center gap-2 px-4">
-              <SidebarTrigger className="-ml-1 w-5 h-5" />
-              <Separator orientation="vertical" className="mr-2 h-4" />
-              <Breadcrumb>
-                <BreadcrumbList>
-                  <BreadcrumbItem className="hidden md:block">
-                    <BreadcrumbLink href="#">
-                      Building Your Application
-                    </BreadcrumbLink>
-                  </BreadcrumbItem>
-                  <BreadcrumbSeparator className="hidden md:block" />
-                  <BreadcrumbItem>
-                    <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                  </BreadcrumbItem>
-                </BreadcrumbList>
-              </Breadcrumb>
-            </div>
-          </header>
-
-          <div className="min-h-screen px-4 flex-1 bg-indigo-200">
-            <Outlet />
-          </div>
-        </SidebarInset>
-      </SidebarProvider>
-    </div>
+    <Sidebar collapsible="icon" {...props}>
+      <SidebarHeader>
+        <TeamSwitcher teams={data.teams} />
+      </SidebarHeader>
+      <SidebarContent>
+        <NavMain items={data.navMain} />
+        <NavProjects projects={data.projects} />
+      </SidebarContent>
+      <SidebarFooter>
+        <NavUser user={data.user} />
+      </SidebarFooter>
+      <SidebarRail />
+    </Sidebar>
   );
 }
-
-export default DashboardLayout;

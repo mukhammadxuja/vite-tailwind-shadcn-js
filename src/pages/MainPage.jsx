@@ -67,7 +67,7 @@ function MainPage() {
       {!auth.currentUser.emailVerified && (
         <Alert className="bg-red-50 border-l-4 border-red-500 text-red-700 p-4">
           <div className="flex items-center">
-            <Timer className="h-5 w-5 mr-2" />
+            <Timer className="size-5 mr-2" />
             <div>
               <AlertTitle>Email Not Verified</AlertTitle>
               <AlertDescription>
