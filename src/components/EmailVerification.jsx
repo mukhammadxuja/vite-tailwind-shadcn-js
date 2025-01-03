@@ -1,32 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { useAppContext } from '@/context/AppContext';
-import { Button } from '@/components/ui/button';
+import { sendEmailVerification } from 'firebase/auth';
 import { auth } from '@/firebase';
-import { sendEmailVerification, signOut } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'sonner';
+
+import { Timer } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { RefreshCcw, Terminal, Timer } from 'lucide-react';
+import { toast } from 'sonner';
 
-function MainPage() {
-  const { user } = useAppContext();
-  const navigate = useNavigate();
-
-  const handleSignOut = async () => {
-    try {
-      await signOut(auth);
-      navigate('/signin');
-    } catch (error) {
-      console.error('Error signing out:', error.message);
-    }
-  };
-
+function EmailVerification() {
   const [resendDisabled, setResendDisabled] = useState(false);
   const [timer, setTimer] = useState(0);
 
   const startTimer = () => {
     setResendDisabled(true);
-    setTimer(60); // Start 60-second timer
+    setTimer(60);
   };
 
   useEffect(() => {
@@ -37,7 +24,7 @@ function MainPage() {
 
       return () => clearInterval(interval);
     } else {
-      setResendDisabled(false); // Enable button when timer ends
+      setResendDisabled(false);
     }
   }, [timer]);
 
@@ -46,9 +33,9 @@ function MainPage() {
       const currentUser = auth.currentUser;
 
       if (currentUser) {
-        await sendEmailVerification(currentUser); // Use the explicit function
+        await sendEmailVerification(currentUser);
         toast('Verification email sent!');
-        startTimer(); // Start countdown after successful send
+        startTimer();
       } else {
         alert('No user is currently signed in.');
       }
@@ -63,7 +50,7 @@ function MainPage() {
   };
 
   return (
-    <div className="space-y-2">
+    <>
       {!auth.currentUser.emailVerified && !auth.currentUser.isAnonymous && (
         <Alert className="bg-red-50 border-l-4 border-red-500 text-red-700 p-4">
           <div className="flex items-center">
@@ -90,12 +77,8 @@ function MainPage() {
           </div>
         </Alert>
       )}
-      <h5>{user.isAnonymous ? 'Anonymous' : user.email}</h5>
-      <Button variant="destructive" onClick={handleSignOut}>
-        Sign Out
-      </Button>
-    </div>
+    </>
   );
 }
 
-export default MainPage;
+export default EmailVerification;

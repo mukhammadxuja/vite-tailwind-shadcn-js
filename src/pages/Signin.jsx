@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { signInAnonymously, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/firebase';
@@ -83,7 +83,12 @@ const Signin = () => {
             </p>
           )}
         </div>
-
+        <p>
+          Forgot your password?
+          <Link to="/forgot-password" className="text-blue-500 hover:underline">
+            Reset it here
+          </Link>
+        </p>
         <button
           type="submit"
           className="w-full bg-blue-500 text-white py-3 rounded-md mt-4 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"

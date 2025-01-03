@@ -30,13 +30,8 @@ const ProtectedRoute = ({ children }) => {
   }
 
   if (!isAuthenticated) {
-    navigate('/signin');
-    return null;
+    return <Navigate to="/signin" replace />;
   }
-
-  // if (user.isAnonymous) {
-  //   navigate('/dashboard');
-  // }
 
   return children;
 };

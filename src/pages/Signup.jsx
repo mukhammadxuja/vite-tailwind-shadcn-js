@@ -2,17 +2,16 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { auth } from '@/firebase';
+import { auth, db } from '@/firebase';
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
-  sendEmailVerification,
   signInWithPopup,
 } from 'firebase/auth';
 import zxcvbn from 'zxcvbn';
-import { toast } from 'sonner';
 
 import { Progress } from '@/components/ui/progress';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 const Signup = () => {
   const {
@@ -26,7 +25,18 @@ const Signup = () => {
 
   const onSubmit = async (data) => {
     try {
-      await createUserWithEmailAndPassword(auth, data.email, data.password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      );
+      const user = userCredential.user;
+
+      await setDoc(doc(db, 'users', user.uid), {
+        email: data.email,
+        displayName: data.displayName || 'User',
+      });
+
       navigate('/dashboard');
     } catch (error) {
       setError(error.message);
@@ -38,27 +48,57 @@ const Signup = () => {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
+
+      const userDocRef = doc(db, 'users', user.uid);
+      const userDocSnapshot = await getDoc(userDocRef);
+
+      if (!userDocSnapshot.exists()) {
+        await setDoc(userDocRef, {
+          email: user.email,
+          displayName: user.displayName || 'Google User',
+        });
+      }
+
       navigate('/dashboard');
     } catch (error) {
-      setError(error.message); // Show Firebase error
+      setError(error.message);
     }
   };
 
   const handlePasswordChange = (e) => {
     const password = e.target.value;
     const result = zxcvbn(password);
-    setPasswordStrength(result.score); // Set the password strength score (0-4)
+    setPasswordStrength(result.score);
   };
 
   return (
     <div className="max-w-md mx-auto p-4 bg-white border rounded-md shadow-lg">
       <h2 className="text-2xl font-semibold text-center mb-4">Sign Up</h2>
 
-      {/* Show error if any */}
       {error && <p className="text-red-500 text-center mb-4">{error}</p>}
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
+          <label
+            htmlFor="displayName"
+            className="block text-sm font-medium text-gray-700"
+          >
+            DisplayName
+          </label>
+          <input
+            {...register('displayName', {
+              required: 'DisplayName is required',
+            })}
+            id="displayName"
+            placeholder="User"
+            className="w-full p-2 border border-gray-300 rounded-md"
+          />
+          {errors.displayName && (
+            <p className="text-red-500 text-sm">{errors.displayName.message}</p>
+          )}
+        </div>
+
+        <div>
           <label
             htmlFor="email"
             className="block text-sm font-medium text-gray-700"
