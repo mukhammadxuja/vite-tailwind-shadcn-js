@@ -34,6 +34,10 @@ const ProtectedRoute = ({ children }) => {
     return null;
   }
 
+  // if (user.isAnonymous) {
+  //   navigate('/dashboard');
+  // }
+
   return children;
 };
 

@@ -63,8 +63,8 @@ function MainPage() {
   };
 
   return (
-    <div>
-      {!auth.currentUser.emailVerified && (
+    <div className="space-y-2">
+      {!auth.currentUser.emailVerified && !auth.currentUser.isAnonymous && (
         <Alert className="bg-red-50 border-l-4 border-red-500 text-red-700 p-4">
           <div className="flex items-center">
             <Timer className="size-5 mr-2" />
@@ -90,7 +90,7 @@ function MainPage() {
           </div>
         </Alert>
       )}
-      <h5>{user.displayName ? user.displayName : user.email}</h5>
+      <h5>{user.isAnonymous ? 'Anonymous' : user.email}</h5>
       <Button variant="destructive" onClick={handleSignOut}>
         Sign Out
       </Button>

@@ -23,6 +23,7 @@ import { TeamSwitcher } from './TeamSwitcher';
 import { NavMain } from './NavMain';
 import { NavProjects } from './NavProjects';
 import { NavUser } from './NavUser';
+import { useAppContext } from '@/context/AppContext';
 
 // This is sample data.
 const data = {
@@ -155,6 +156,7 @@ const data = {
 };
 
 export function AppSidebar({ ...props }) {
+  const { user } = useAppContext();
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
@@ -165,7 +167,7 @@ export function AppSidebar({ ...props }) {
         <NavProjects projects={data.projects} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={user} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

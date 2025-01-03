@@ -23,9 +23,23 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar';
+import { useNavigate } from 'react-router-dom';
+import { signOut } from 'firebase/auth';
+import { auth } from '@/firebase';
 
 export function NavUser({ user }) {
   const { isMobile } = useSidebar();
+
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      navigate('/signin');
+    } catch (error) {
+      console.error('Error signing out:', error.message);
+    }
+  };
 
   return (
     <SidebarMenu>
@@ -37,12 +51,23 @@ export function NavUser({ user }) {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage src={user.avatar} alt={user.name} />
+                <AvatarImage
+                  src={
+                    user.photoURL
+                      ? user.photoURL
+                      : 'https://ui.shadcn.com/avatars/shadcn.jpg'
+                  }
+                  alt={user.displayName ? user.displayName : 'Anonymous'}
+                />
                 <AvatarFallback className="rounded-lg">CN</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-semibold">{user.name}</span>
-                <span className="truncate text-xs">{user.email}</span>
+                <span className="truncate font-semibold">
+                  {user.displayName ? user.displayName : 'Anonymous'}
+                </span>
+                <span className="truncate text-xs">
+                  {user.isAnonymous ? 'anonymous@gmail.com' : user.email}
+                </span>
               </div>
               <ChevronsUpDown className="ml-auto w-5 h-5" />
             </SidebarMenuButton>
@@ -56,12 +81,25 @@ export function NavUser({ user }) {
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={user.avatar} alt={user.name} />
+                  <AvatarImage
+                    src={
+                      user.photoURL
+                        ? user.photoURL
+                        : 'https://ui.shadcn.com/avatars/shadcn.jpg'
+                    }
+                    alt={user.displayName ? user.displayName : 'Anonymous'}
+                  />
                   <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">{user.name}</span>
-                  <span className="truncate text-xs">{user.email}</span>
+                  <span className="truncate font-semibold">
+                    {' '}
+                    {user.displayName ? user.displayName : 'Anonymous'}
+                  </span>
+                  <span className="truncate text-xs">
+                    {' '}
+                    {user.isAnonymous ? 'anonymous@gmail.com' : user.email}
+                  </span>
                 </div>
               </div>
             </DropdownMenuLabel>
@@ -88,7 +126,7 @@ export function NavUser({ user }) {
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={handleSignOut}>
               <LogOut className="w-4 h-4 mr-2" />
               Log out
             </DropdownMenuItem>

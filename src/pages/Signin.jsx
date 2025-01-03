@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInAnonymously, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/firebase';
+import { toast } from 'sonner';
 
 const Signin = () => {
   const [error, setError] = useState('');
@@ -23,6 +24,17 @@ const Signin = () => {
       navigate('/dashboard'); // Redirect to dashboard after successful sign-in
     } catch (error) {
       setError(error.message); // Show Firebase error
+    }
+  };
+
+  const handleAnonymousSignIn = async () => {
+    try {
+      const userCredential = await signInAnonymously(auth);
+      const user = userCredential.user;
+      navigate('/dashboard');
+      toast('Signed in anonymously:');
+    } catch (error) {
+      console.error('Error signing in anonymously:', error.message);
     }
   };
 
@@ -83,6 +95,12 @@ const Signin = () => {
           <p className="text-sm text-red-500 mt-4 text-center">{error}</p>
         )}
       </form>
+      <button
+        onClick={handleAnonymousSignIn}
+        className="bg-blue-500 text-white px-4 py-2 rounded-md"
+      >
+        Continue as Guest
+      </button>
     </div>
   );
 };
