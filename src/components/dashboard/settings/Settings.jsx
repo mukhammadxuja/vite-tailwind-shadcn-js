@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 
 import { Badge } from '@/components/ui/badge';
@@ -19,11 +19,16 @@ import { useAppContext } from '@/context/AppContext';
 
 function SettingsPage() {
   const { userData } = useAppContext();
-  const [imageSrc, setImageSrc] = useState(
-    'https://ui.shadcn.com/avatars/shadcn.jpg'
-  );
+  const [imageSrc, setImageSrc] = useState();
   const [imageSelected, setImageSelected] = useState(false);
+  const [isFormChanged, setIsFormChanged] = useState(false);
   const fileInputRef = useRef(null);
+
+  useEffect(() => {
+    if (userData?.photoURL) {
+      setImageSrc(userData.photoURL);
+    }
+  }, [userData]);
 
   const handleImageClick = () => {
     fileInputRef.current.click();
@@ -34,16 +39,18 @@ function SettingsPage() {
     if (file) {
       const fileReader = new FileReader();
       fileReader.onloadend = () => {
-        setImageSrc(fileReader.result); // Set the image source to the newly uploaded file
-        setImageSelected(true); // Mark that an image is selected
+        setImageSrc(fileReader.result);
+        setImageSelected(true);
       };
-      fileReader.readAsDataURL(file); // Convert file to base64 string
+      fileReader.readAsDataURL(file);
     }
+    setIsFormChanged(true);
   };
 
   const handleRemoveImage = () => {
-    setImageSrc('https://ui.shadcn.com/avatars/shadcn.jpg');
-    setImageSelected(false); // Reset image selection state
+    setImageSrc(null);
+    setImageSelected(false);
+    setIsFormChanged(false);
   };
 
   return (
@@ -52,7 +59,11 @@ function SettingsPage() {
         <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
           <div className="relative w-28 h-28">
             <img
-              src={imageSrc}
+              src={
+                imageSrc
+                  ? imageSrc
+                  : 'https://firebasestorage.googleapis.com/v0/b/wedding-invitation-58993.appspot.com/o/user_photos%2Funknown.jpg?alt=media&token=e95bc7b0-01b1-4254-b321-e4ee39d1eb55'
+              }
               alt="Editable avatar"
               className="w-full h-full object-cover rounded-lg cursor-pointer"
               onClick={handleImageClick}
@@ -198,7 +209,12 @@ function SettingsPage() {
           <ScrollBar orientation="horizontal" />
         </ScrollArea>
         <TabsContent value="general" className="max-w-2xl">
-          <General />
+          <General
+            photo={imageSrc}
+            isFormChanged={isFormChanged}
+            setIsFormChanged={setIsFormChanged}
+            setImageSelected={setImageSelected}
+          />
         </TabsContent>
         <TabsContent value="tab-2">
           <p className="pt-1 text-center text-xs text-muted-foreground">

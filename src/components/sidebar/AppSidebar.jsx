@@ -25,7 +25,6 @@ import { NavProjects } from './NavProjects';
 import { NavUser } from './NavUser';
 import { useAppContext } from '@/context/AppContext';
 
-// This is sample data.
 const data = {
   user: {
     name: 'shadcn',
@@ -119,7 +118,7 @@ const data = {
       items: [
         {
           title: 'General',
-          url: '#',
+          url: '/dashboard/settings',
         },
         {
           title: 'Team',

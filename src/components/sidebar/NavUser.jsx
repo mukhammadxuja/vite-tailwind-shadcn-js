@@ -55,7 +55,7 @@ export function NavUser({ user }) {
                   src={
                     user.photoURL
                       ? user.photoURL
-                      : 'https://ui.shadcn.com/avatars/shadcn.jpg'
+                      : 'https://firebasestorage.googleapis.com/v0/b/wedding-invitation-58993.appspot.com/o/user_photos%2Funknown.jpg?alt=media&token=e95bc7b0-01b1-4254-b321-e4ee39d1eb55'
                   }
                   alt={user.displayName ? user.displayName : 'Anonymous'}
                 />
@@ -85,7 +85,7 @@ export function NavUser({ user }) {
                     src={
                       user.photoURL
                         ? user.photoURL
-                        : 'https://ui.shadcn.com/avatars/shadcn.jpg'
+                        : 'https://firebasestorage.googleapis.com/v0/b/wedding-invitation-58993.appspot.com/o/user_photos%2Funknown.jpg?alt=media&token=e95bc7b0-01b1-4254-b321-e4ee39d1eb55'
                     }
                     alt={user.displayName ? user.displayName : 'Anonymous'}
                   />

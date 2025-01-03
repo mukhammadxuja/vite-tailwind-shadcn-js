@@ -11,52 +11,48 @@ export const useAppContext = () => {
 
 export const AppContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [userUid, setUserUid] = useState(null);
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [userLoading, setUserLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
-      if (currentUser) {
-        try {
-          const userDocRef = doc(db, 'users', currentUser.uid);
-          const userDocSnapshot = await getDoc(userDocRef);
-
-          if (userDocSnapshot.exists()) {
-            setUserData(userDocSnapshot.data());
-          } else {
-            setError('User data not found in Firestore.');
-          }
-        } catch (err) {
-          setError(err.message);
-        } finally {
-          setLoading(false);
-        }
+    setLoading(true);
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+        setUserUid(auth.currentUser.uid);
       } else {
-        setError('No user is logged in.');
-        setLoading(false);
+        setUser(null);
       }
+      setLoading(false);
     });
 
     return () => unsubscribe();
   }, []);
 
+  const fetchUserData = async () => {
+    if (user) {
+      setUserLoading(true);
+      try {
+        const snapshot = await getDoc(doc(db, 'users', userUid));
+        setUserData(snapshot.data());
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      } finally {
+        setUserLoading(false);
+      }
+    }
+  };
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
-
-    return () => unsubscribe();
-  }, []);
-
-  console.log(userData);
+    fetchUserData();
+  }, [user]);
 
   const contextValue = {
     user,
     userData,
     setUserData,
     loading,
-    error,
   };
 
   return (

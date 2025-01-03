@@ -31,16 +31,8 @@ import {
 
 import { Separator } from '@/components/ui/separator';
 
-import {
-  Breadcrumb,
-  BreadcrumbEllipsis,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb';
 import { AppSidebar } from '../sidebar/AppSidebar';
+import CustomBreadcrumb from '../CustomBreadcrumb';
 
 const data = {
   user: {
@@ -181,19 +173,7 @@ function DashboardLayout({ children }) {
             <div className="flex items-center gap-2 px-4">
               <SidebarTrigger className="-ml-1 w-5 h-5" />
               <Separator orientation="vertical" className="mr-2 h-4" />
-              <Breadcrumb>
-                <BreadcrumbList>
-                  <BreadcrumbItem className="hidden md:block">
-                    <BreadcrumbLink href="#">
-                      Building Your Application
-                    </BreadcrumbLink>
-                  </BreadcrumbItem>
-                  <BreadcrumbSeparator className="hidden md:block" />
-                  <BreadcrumbItem>
-                    <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                  </BreadcrumbItem>
-                </BreadcrumbList>
-              </Breadcrumb>
+              <CustomBreadcrumb />
             </div>
           </header>
 
