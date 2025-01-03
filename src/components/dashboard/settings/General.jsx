@@ -20,6 +20,14 @@ import { getDownloadURL, ref, uploadString } from 'firebase/storage';
 function General({ photo, isFormChanged, setIsFormChanged, setImageSelected }) {
   const { userData, setUserData } = useAppContext();
 
+  const defaultValues = {
+    displayName: userData?.displayName || '',
+    profession: userData?.profession || '',
+    location: userData?.location || '',
+    pronoun: userData?.pronoun || '',
+    isOpenToWork: userData?.isOpenToWork || false,
+  };
+
   const {
     control,
     handleSubmit,
@@ -27,7 +35,7 @@ function General({ photo, isFormChanged, setIsFormChanged, setImageSelected }) {
     setError,
     formState: { errors, isSubmitting, isDirty },
     reset,
-  } = useForm();
+  } = useForm({ defaultValues });
 
   useEffect(() => {
     reset({
