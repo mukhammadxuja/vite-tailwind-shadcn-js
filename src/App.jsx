@@ -1,13 +1,13 @@
-import { ThemeProvider } from '@/provider/ThemeProvider';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { ThemeToggle } from '@/components/ThemeToggle';
-
 import './App.css';
 import Dashboard from './pages/Dashboard';
+import { FontProvider } from './context/FontContext';
 
 function App() {
-  return <Dashboard />;
+  return (
+    <FontProvider>
+      <Dashboard />
+    </FontProvider>
+  );
 }
 
 export default App;

@@ -18,21 +18,11 @@ import {
   SquareTerminal,
 } from 'lucide-react';
 
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-} from '@/components/ui/sidebar';
-
 import { Separator } from '@/components/ui/separator';
 
 import { AppSidebar } from '../sidebar/AppSidebar';
 import CustomBreadcrumb from '../CustomBreadcrumb';
+import { useFont } from '@/context/FontContext';
 
 const data = {
   user: {
@@ -163,9 +153,11 @@ const data = {
   ],
 };
 
-function DashboardLayout({ children }) {
+function DashboardLayout() {
+  const { font } = useFont();
+
   return (
-    <div>
+    <div style={{ fontFamily: font }}>
       <SidebarProvider>
         <AppSidebar />
         <SidebarInset>
