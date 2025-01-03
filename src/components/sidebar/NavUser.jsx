@@ -26,9 +26,11 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from '@/firebase';
+import { useAppContext } from '@/context/AppContext';
 
-export function NavUser({ user }) {
+export function NavUser() {
   const { isMobile } = useSidebar();
+  const { userData } = useAppContext();
 
   const navigate = useNavigate();
 
@@ -53,20 +55,24 @@ export function NavUser({ user }) {
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage
                   src={
-                    user.photoURL
-                      ? user.photoURL
+                    userData?.photoURL
+                      ? userData?.photoURL
                       : 'https://firebasestorage.googleapis.com/v0/b/wedding-invitation-58993.appspot.com/o/user_photos%2Funknown.jpg?alt=media&token=e95bc7b0-01b1-4254-b321-e4ee39d1eb55'
                   }
-                  alt={user.displayName ? user.displayName : 'Anonymous'}
+                  alt={
+                    userData?.displayName ? userData?.displayName : 'Anonymous'
+                  }
                 />
                 <AvatarFallback className="rounded-lg">CN</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">
-                  {user.displayName ? user.displayName : 'Anonymous'}
+                  {userData?.displayName ? userData?.displayName : 'Anonymous'}
                 </span>
                 <span className="truncate text-xs">
-                  {user.isAnonymous ? 'anonymous@gmail.com' : user.email}
+                  {userData?.isAnonymous
+                    ? 'anonymous@gmail.com'
+                    : userData?.email}
                 </span>
               </div>
               <ChevronsUpDown className="ml-auto w-5 h-5" />
@@ -83,22 +89,30 @@ export function NavUser({ user }) {
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage
                     src={
-                      user.photoURL
-                        ? user.photoURL
+                      userData?.photoURL
+                        ? userData?.photoURL
                         : 'https://firebasestorage.googleapis.com/v0/b/wedding-invitation-58993.appspot.com/o/user_photos%2Funknown.jpg?alt=media&token=e95bc7b0-01b1-4254-b321-e4ee39d1eb55'
                     }
-                    alt={user.displayName ? user.displayName : 'Anonymous'}
+                    alt={
+                      userData?.displayName
+                        ? userData?.displayName
+                        : 'Anonymous'
+                    }
                   />
                   <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold">
                     {' '}
-                    {user.displayName ? user.displayName : 'Anonymous'}
+                    {userData?.displayName
+                      ? userData?.displayName
+                      : 'Anonymous'}
                   </span>
                   <span className="truncate text-xs">
                     {' '}
-                    {user.isAnonymous ? 'anonymous@gmail.com' : user.email}
+                    {userData?.isAnonymous
+                      ? 'anonymous@gmail.com'
+                      : userData?.email}
                   </span>
                 </div>
               </div>

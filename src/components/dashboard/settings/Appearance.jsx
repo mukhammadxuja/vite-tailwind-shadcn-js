@@ -27,28 +27,44 @@ function Appearance() {
     setSelectedColor(color);
     localStorage.setItem('selectedColor', color);
 
-    let hslValue;
+    let hslValue, foregroundValue;
     switch (color) {
       case 'red':
         hslValue = '0 72.2% 50.6%';
+        foregroundValue = '0 0% 98%'; // Adjust for readability
         break;
       case 'blue':
         hslValue = '221.2 83.2% 53.3%';
+        foregroundValue = '0 0% 98%'; // Adjust for readability
         break;
       case 'orange':
         hslValue = '24.6 95% 53.1%';
+        foregroundValue = '0 0% 98%';
         break;
       case 'green':
         hslValue = '142.1 76.2% 36.3%';
+        foregroundValue = '0 0% 98%';
         break;
       case 'yellow':
         hslValue = '47.9 95.8% 53.1%';
+        foregroundValue = '0 0% 98%';
         break;
       default:
         hslValue = '240 5.9% 10%';
+        foregroundValue = '0 0% 98%';
     }
 
     document.documentElement.style.setProperty('--primary', hslValue);
+    document.documentElement.style.setProperty(
+      '--primary-foreground',
+      foregroundValue
+    );
+
+    const darkTheme = document.querySelector('.dark');
+    if (darkTheme) {
+      darkTheme.style.setProperty('--primary', foregroundValue);
+      darkTheme.style.setProperty('--primary-foreground', hslValue);
+    }
   };
 
   useEffect(() => {
@@ -105,7 +121,7 @@ function Appearance() {
         <div className="flex items-center gap-2">
           <div
             onClick={() => handleColorChange('black')}
-            className="relative w-5 h-5 rounded-full bg-black ring-2 ring-black cursor-pointer"
+            className="relative w-5 h-5 rounded-full bg-black ring-2 ring-black dark:ring-white cursor-pointer"
           >
             {selectedColor === 'black' && (
               <Check className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 text-white" />
@@ -173,6 +189,23 @@ function Appearance() {
             <SelectItem value="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
               Apple System
             </SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+        <div className="mb-2 lg:mb-3">
+          <h2 className="text-lg font-semibold">Languages</h2>
+          <p className="text-sm text-muted-foreground">
+            Choose a language that suits your preference.
+          </p>
+        </div>
+        <Select onValueChange="" value="">
+          <SelectTrigger className="w-40">
+            <SelectValue placeholder="Languages" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="en">English</SelectItem>
+            <SelectItem value="de">German</SelectItem>
           </SelectContent>
         </Select>
       </div>

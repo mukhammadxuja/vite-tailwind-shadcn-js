@@ -43,7 +43,7 @@ function ProfileHeader({
   };
 
   return (
-    <header className="bg-muted p-5 rounded-lg">
+    <header className="p-5 rounded-lg">
       <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
         <div className="relative w-28 h-28">
           <img
