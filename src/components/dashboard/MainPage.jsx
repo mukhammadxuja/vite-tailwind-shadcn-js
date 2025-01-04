@@ -8,10 +8,16 @@ import { toast } from 'sonner';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { RefreshCcw, Terminal, Timer } from 'lucide-react';
 import EmailVerification from '@/components/EmailVerification';
+import { useTranslation } from 'react-i18next';
 
 function MainPage() {
   const { user } = useAppContext();
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  };
 
   const handleSignOut = async () => {
     try {
@@ -23,7 +29,7 @@ function MainPage() {
   };
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-2 my-4">
       <EmailVerification />
       <h5>{user.isAnonymous ? 'Anonymous' : user.email}</h5>
       <Button variant="destructive" onClick={handleSignOut}>

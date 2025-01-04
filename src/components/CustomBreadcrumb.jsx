@@ -9,9 +9,11 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 import { Link, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
-function CustomBreadcrumb({ subtitle }) {
+function CustomBreadcrumb() {
   const location = useLocation();
+  const { t } = useTranslation();
 
   const pathSegments = location.pathname
     .replace('/dashboard', '')
@@ -41,9 +43,9 @@ function CustomBreadcrumb({ subtitle }) {
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem className="hidden md:block">
-          <BreadcrumbLink as={Link} to="/dashboard" className="cursor-pointer">
-            Building Your Application
-          </BreadcrumbLink>
+          <Link to="/dashboard" className="cursor-pointer">
+            {t('breadcrumbTitle')}
+          </Link>
         </BreadcrumbItem>
         {breadcrumbItems.length > 0 && <BreadcrumbSeparator />}
         {breadcrumbItems}

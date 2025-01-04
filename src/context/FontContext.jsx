@@ -8,7 +8,12 @@ export const useFont = () => {
 };
 
 export const FontProvider = ({ children }) => {
-  const [font, setFont] = useState('inter');
+  const [font, setFont] = useState(() => {
+    return (
+      localStorage.getItem('font') ||
+      "'Segoe UI', 'San Francisco', 'Roboto', 'Arial', sans-serif"
+    );
+  });
 
   useEffect(() => {
     const savedFont = localStorage.getItem('font');

@@ -52,21 +52,24 @@ function EmailVerification() {
   return (
     <>
       {!auth.currentUser.emailVerified && !auth.currentUser.isAnonymous && (
-        <Alert className="bg-red-50 border-l-4 border-red-500 text-red-700 p-4">
-          <div className="flex items-center">
-            <Timer className="size-5 mr-2" />
+        <Alert className="flex justify-between bg-red-50 dark:bg-red-500 border-l-4 border-red-500 text-red-700 dark:text-white p-4">
+          <div className="flex items-start">
+            <Timer className="w-5 h-5 mr-2" />
             <div>
               <AlertTitle>Email Not Verified</AlertTitle>
               <AlertDescription>
                 Your email is not verified. Please check your inbox for a
-                verification email. If you didn’t receive one, you can resend it
+                verification email. <br /> If you didn’t receive one, you can resend it
                 below.
               </AlertDescription>
             </div>
           </div>
-          <div className="mt-4 flex justify-end">
-            <Button onClick={handleReload}>Reload Page</Button>
+          <div className="flex items-center gap-2">
+            <Button size="sm" onClick={handleReload}>
+              Reload Page
+            </Button>
             <Button
+              size="sm"
               onClick={handleResendVerification}
               disabled={resendDisabled}
               variant="secondary"

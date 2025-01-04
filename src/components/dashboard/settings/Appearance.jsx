@@ -8,15 +8,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Check } from 'lucide-react';
+import { Check, Minus } from 'lucide-react';
 import { useFont } from '@/context/FontContext';
+import { useTranslation } from 'react-i18next';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
 function Appearance() {
-  const { theme, setTheme } = useTheme();
+  const { setTheme } = useTheme();
   const { font, setFont } = useFont();
+  const { t, i18n } = useTranslation();
   const [selectedColor, setSelectedColor] = useState(() => {
     return localStorage.getItem('selectedColor') || 'black';
   });
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  };
 
   const handleFontChange = (value) => {
     setFont(value);
@@ -31,11 +38,11 @@ function Appearance() {
     switch (color) {
       case 'red':
         hslValue = '0 72.2% 50.6%';
-        foregroundValue = '0 0% 98%'; // Adjust for readability
+        foregroundValue = '0 0% 98%';
         break;
       case 'blue':
         hslValue = '221.2 83.2% 53.3%';
-        foregroundValue = '0 0% 98%'; // Adjust for readability
+        foregroundValue = '0 0% 98%';
         break;
       case 'orange':
         hslValue = '24.6 95% 53.1%';
@@ -75,47 +82,79 @@ function Appearance() {
     }
   }, []);
 
+  const items = [
+    {
+      id: 'radio-18-r1',
+      value: 'light',
+      label: `${t('light')}`,
+      image: '/assets/ui-light.png',
+    },
+    {
+      id: 'radio-18-r2',
+      value: 'dark',
+      label: `${t('dark')}`,
+      image: '/assets/ui-dark.png',
+    },
+    {
+      id: 'radio-18-r3',
+      value: 'system',
+      label: `${t('system')}`,
+      image: '/assets/ui-system.png',
+    },
+  ];
+
   return (
     <div className="space-y-3 lg:space-y-5">
       <div>
         <div className="mb-2 lg:mb-3">
-          <h2 className="text-lg font-semibold">Appearance</h2>
+          <h2 className="text-base font-medium">{t('appearanceTitle')}</h2>
           <p className="text-sm text-muted-foreground">
-            Customize the look and feel of your dashboard.
+            {t('appearanceDescription')}
           </p>
         </div>
-        <div className="grid grid-cols-3 items-center gap-2">
-          <img
-            onClick={() => setTheme('system')}
-            className={`w-full h-auto rounded-xl cursor-pointer p-0.5 border-2 hover:border-primary duration-200 ${
-              theme === 'system' ? 'border-primary' : ''
-            }`}
-            src="/assets/ui-system.png"
-            alt="System theme image"
-          />
-          <img
-            onClick={() => setTheme('light')}
-            className={`w-full h-auto rounded-xl cursor-pointer p-0.5 border-2 hover:border-primary duration-200 ${
-              theme === 'light' ? 'border-primary' : ''
-            }`}
-            src="/assets/ui-light.png"
-            alt="Light theme image"
-          />
-          <img
-            onClick={() => setTheme('dark')}
-            className={`w-full h-auto rounded-xl cursor-pointer p-0.5 border-2 hover:border-primary duration-200 ${
-              theme === 'dark' ? 'border-primary' : ''
-            }`}
-            src="/assets/ui-dark.png"
-            alt="Dark theme image"
-          />
-        </div>
+        <fieldset className="space-y-4">
+          <RadioGroup
+            className="grid grid-cols-1 md:grid-cols-3 items-center gap-2 md:gap-3"
+            defaultValue="light"
+          >
+            {items.map((item) => (
+              <label key={item.id}>
+                <RadioGroupItem
+                  id={item.id}
+                  value={item.value}
+                  onClick={() => setTheme(item.value)}
+                  className="peer sr-only after:absolute after:inset-0"
+                />
+                <img
+                  src={item.image}
+                  alt={item.label}
+                  className="relative w-full h-auto cursor-pointer overflow-hidden rounded-lg border border-input shadow-sm shadow-black/5 outline-offset-2 transition-colors peer-[:focus-visible]:outline peer-[:focus-visible]:outline-2 peer-[:focus-visible]:outline-ring/70 peer-data-[disabled]:cursor-not-allowed peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-accent peer-data-[disabled]:opacity-50"
+                />
+                <span className="group mt-2 flex items-center gap-1 peer-data-[state=unchecked]:text-muted-foreground/70">
+                  <Check
+                    size={16}
+                    strokeWidth={2}
+                    className="peer-data-[state=unchecked]:group-[]:hidden"
+                    aria-hidden="true"
+                  />
+                  <Minus
+                    size={16}
+                    strokeWidth={2}
+                    className="peer-data-[state=checked]:group-[]:hidden"
+                    aria-hidden="true"
+                  />
+                  <span className="text-xs font-medium">{item.label}</span>
+                </span>
+              </label>
+            ))}
+          </RadioGroup>
+        </fieldset>
       </div>
       <div className="flex flex-col md:flex-row md:items-center md:justify-between">
         <div className="mb-2 lg:mb-3">
-          <h2 className="text-lg font-semibold">Accent color</h2>
+          <h2 className="text-base font-medium">{t('accentColor')}</h2>
           <p className="text-sm text-muted-foreground">
-            Choose a color that suits your style.
+            {t('accentColorDescription')}
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -171,37 +210,37 @@ function Appearance() {
       </div>
       <div className="flex flex-col md:flex-row md:items-center md:justify-between">
         <div className="mb-2 lg:mb-3">
-          <h2 className="text-lg font-semibold">Font style</h2>
+          <h2 className="text-base font-medium">{t('fontStyle')}</h2>
           <p className="text-sm text-muted-foreground">
-            Choose a font style that suits your preference.
+            {t('fontStyleDescription')}
           </p>
         </div>
         <Select onValueChange={handleFontChange} value={font}>
           <SelectTrigger className="w-40">
-            <SelectValue placeholder="Font style" />
+            <SelectValue placeholder={t('fontStyle')} />
           </SelectTrigger>
           <SelectContent>
+            <SelectItem value="'Segoe UI', 'San Francisco', 'Roboto', 'Arial', sans-serif">
+              Segoe UI
+            </SelectItem>
             <SelectItem value="inter">Inter</SelectItem>
             <SelectItem value="manrope">Manrope</SelectItem>
             <SelectItem value="system">System</SelectItem>
             <SelectItem value="'Roboto', sans-serif">Roboto</SelectItem>
             <SelectItem value="'Open Sans', sans-serif">Open Sans</SelectItem>
-            <SelectItem value="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
-              Apple System
-            </SelectItem>
           </SelectContent>
         </Select>
       </div>
       <div className="flex flex-col md:flex-row md:items-center md:justify-between">
         <div className="mb-2 lg:mb-3">
-          <h2 className="text-lg font-semibold">Languages</h2>
+          <h2 className="text-base font-medium">{t('languagesTitle')}</h2>
           <p className="text-sm text-muted-foreground">
-            Choose a language that suits your preference.
+            {t('languagesDescription')}
           </p>
         </div>
-        <Select onValueChange="" value="">
+        <Select onValueChange={changeLanguage} value={i18n.language}>
           <SelectTrigger className="w-40">
-            <SelectValue placeholder="Languages" />
+            <SelectValue placeholder={t('languagesTitle')} />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="en">English</SelectItem>

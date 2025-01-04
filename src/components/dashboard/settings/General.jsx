@@ -16,9 +16,11 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { getDownloadURL, ref, uploadString } from 'firebase/storage';
+import { useTranslation } from 'react-i18next';
 
 function General({ photo, isFormChanged, setIsFormChanged, setImageSelected }) {
   const { userData, setUserData } = useAppContext();
+  const { t } = useTranslation();
 
   const defaultValues = {
     displayName: userData?.displayName || '',
@@ -103,40 +105,40 @@ function General({ photo, isFormChanged, setIsFormChanged, setImageSelected }) {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div className="flex flex-col items-start space-y-2">
-        <Label required>Display Name</Label>
+        <Label required>{t('displayName')}</Label>
         <Input
           disabled={isSubmitting}
           {...register('displayName', { required: 'Display Name is required' })}
-          placeholder="John Doe"
+          placeholder={t('johnDoe')}
           onChange={() => setIsFormChanged(true)}
         />
         {errors.displayName && <p>{errors.displayName.message}</p>}
       </div>
 
       <div className="flex flex-col items-start space-y-2">
-        <Label required>Profession</Label>
+        <Label required>{t('profession')}</Label>
         <Input
           disabled={isSubmitting}
           {...register('profession', { required: 'Profession is required' })}
-          placeholder="Frontend Developer"
+          placeholder={t('frontendDeveloper')}
           onChange={() => setIsFormChanged(true)}
         />
         {errors.profession && <p>{errors.profession.message}</p>}
       </div>
 
       <div className="flex flex-col items-start space-y-2">
-        <Label optional>Location</Label>
+        <Label optional>{t('location')}</Label>
         <Input
           disabled={isSubmitting}
           {...register('location')}
-          placeholder="San Francisco, USA"
+          placeholder={t('sanFrancisco')}
           onChange={() => setIsFormChanged(true)}
         />
       </div>
 
       <div className="space-y-1 w-full">
         <Label optional htmlFor="pronoun">
-          Pronoun
+          {t('pronoun')}
         </Label>
         <Controller
           name="pronoun"
@@ -154,8 +156,8 @@ function General({ photo, isFormChanged, setIsFormChanged, setImageSelected }) {
                 <SelectValue placeholder="Select Pronoun" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="He/Him">He/Him</SelectItem>
-                <SelectItem value="She/Her">She/Her</SelectItem>
+                <SelectItem value="He/Him">{t('heHim')}</SelectItem>
+                <SelectItem value="She/Her">{t('sheHer')}</SelectItem>
               </SelectContent>
             </Select>
           )}
@@ -180,15 +182,15 @@ function General({ photo, isFormChanged, setIsFormChanged, setImageSelected }) {
               />
             )}
           />
-          <Label htmlFor="isOpenToWork">Open to work</Label>
+          <Label htmlFor="isOpenToWork">{t('openToWork')}</Label>
         </div>
 
         <div className="flex items-center gap-2">
           <Button type="button" variant="secondary" onClick={handleCancel}>
-            Cancel
+            {t('cancel')}
           </Button>
           <Button disabled={isSubmitting || !isFormChanged} type="submit">
-            {isSubmitting ? 'Saving...' : 'Save'}
+            {isSubmitting ? `${t('saving')}` : `${t('save')}`}
           </Button>
         </div>
       </div>

@@ -4,6 +4,7 @@ import {
   ChevronsUpDown,
   CreditCard,
   LogOut,
+  Settings,
   Sparkles,
 } from 'lucide-react';
 
@@ -23,15 +24,16 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from '@/firebase';
 import { useAppContext } from '@/context/AppContext';
+import { useTranslation } from 'react-i18next';
 
 export function NavUser() {
   const { isMobile } = useSidebar();
-  const { userData } = useAppContext();
-
+  const { userData, user } = useAppContext();
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const handleSignOut = async () => {
@@ -70,9 +72,7 @@ export function NavUser() {
                   {userData?.displayName ? userData?.displayName : 'Anonymous'}
                 </span>
                 <span className="truncate text-xs">
-                  {userData?.isAnonymous
-                    ? 'anonymous@gmail.com'
-                    : userData?.email}
+                  {user?.isAnonymous ? 'anonymous@gmail.com' : user?.email}
                 </span>
               </div>
               <ChevronsUpDown className="ml-auto w-5 h-5" />
@@ -110,39 +110,22 @@ export function NavUser() {
                   </span>
                   <span className="truncate text-xs">
                     {' '}
-                    {userData?.isAnonymous
-                      ? 'anonymous@gmail.com'
-                      : userData?.email}
+                    {user?.isAnonymous ? 'anonymous@gmail.com' : user?.email}
                   </span>
                 </div>
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuGroup>
+            <Link to="/dashboard/settings">
               <DropdownMenuItem>
-                <Sparkles className="w-4 h-4 mr-2" />
-                Upgrade to Pro
+                <Settings className="w-4 h-4 mr-2" />
+                {t('settings')}
               </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <BadgeCheck className="w-4 h-4 mr-2" />
-                Account
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <CreditCard className="w-4 h-4 mr-2" />
-                Billing
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Bell className="w-4 h-4 mr-2" />
-                Notifications
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
+            </Link>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleSignOut}>
               <LogOut className="w-4 h-4 mr-2" />
-              Log out
+              {t('logout')}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

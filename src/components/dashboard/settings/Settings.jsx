@@ -19,8 +19,12 @@ import {
 import General from './general';
 import ProfileHeader from './ProfileHeader';
 import Appearance from './Appearance';
+import Password from './Password';
+import { useTranslation } from 'react-i18next';
 
 function SettingsPage() {
+  const { t } = useTranslation();
+
   const [imageSrc, setImageSrc] = useState();
   const [imageSelected, setImageSelected] = useState(false);
   const [isFormChanged, setIsFormChanged] = useState(false);
@@ -47,7 +51,7 @@ function SettingsPage() {
                 strokeWidth={2}
                 aria-hidden="true"
               />
-              General
+              {t('general')}
             </TabsTrigger>
             <TabsTrigger
               value="appearance"
@@ -59,8 +63,9 @@ function SettingsPage() {
                 strokeWidth={2}
                 aria-hidden="true"
               />
-              Appearance
-              <Badge className="ms-1.5">New</Badge>
+              {t('appearance')}
+
+              <Badge className="ms-1.5">{t('new')}</Badge>
             </TabsTrigger>
             <TabsTrigger
               value="tab-4"
@@ -72,10 +77,10 @@ function SettingsPage() {
                 strokeWidth={2}
                 aria-hidden="true"
               />
-              Privacy
+              {t('privacy')}
             </TabsTrigger>
             <TabsTrigger
-              value="tab-2"
+              value="password"
               className="relative after:absolute after:inset-x-0 after:bottom-0 after:-mb-1 after:h-0.5 hover:bg-accent hover:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:after:bg-primary data-[state=active]:hover:bg-accent"
             >
               <KeyRound
@@ -84,7 +89,7 @@ function SettingsPage() {
                 strokeWidth={2}
                 aria-hidden="true"
               />
-              Password
+              {t('password')}
             </TabsTrigger>
             <TabsTrigger
               value="tab-5"
@@ -96,7 +101,7 @@ function SettingsPage() {
                 strokeWidth={2}
                 aria-hidden="true"
               />
-              Insights
+              {t('insights')}
             </TabsTrigger>
             <TabsTrigger
               value="tab-6"
@@ -108,7 +113,7 @@ function SettingsPage() {
                 strokeWidth={2}
                 aria-hidden="true"
               />
-              Share
+              {t('share')}
             </TabsTrigger>
           </TabsList>
           <ScrollBar orientation="horizontal" />
@@ -121,11 +126,7 @@ function SettingsPage() {
             setImageSelected={setImageSelected}
           />
         </TabsContent>
-        <TabsContent value="tab-2">
-          <p className="pt-1 text-center text-xs text-muted-foreground">
-            Content for Tab 2
-          </p>
-        </TabsContent>
+
         <TabsContent value="appearance" className="max-w-2xl">
           <Appearance />
         </TabsContent>
@@ -133,6 +134,9 @@ function SettingsPage() {
           <p className="pt-1 text-center text-xs text-muted-foreground">
             Content for Tab 4
           </p>
+        </TabsContent>
+        <TabsContent value="password" className="max-w-2xl">
+          <Password />
         </TabsContent>
         <TabsContent value="tab-5">
           <p className="pt-1 text-center text-xs text-muted-foreground">

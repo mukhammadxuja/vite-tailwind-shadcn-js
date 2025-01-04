@@ -84,7 +84,7 @@ function ProfileHeader({
             {userData?.isOpenToWork ? '#OpenToWork' : '#NotOpenToWork'}
           </p>
           <span className="flex items-center gap-1.5">
-            <h3 className="text-lg font-semibold">
+            <h3 className="text-lg font-medium">
               {userData?.displayName ? userData.displayName : 'John Doe'}
               {userData?.pronoun && `, ${userData.pronoun}`}
             </h3>
