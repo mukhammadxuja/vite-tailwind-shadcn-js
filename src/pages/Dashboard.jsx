@@ -1,16 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import {
-  MainPage,
-  HomePage,
-  SettingsPage,
-  NotFound,
-  Signin,
-  Signup,
-  ForgotPassword,
-} from './';
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import ProtectedRoute from '@/components/ProtectedRoute';
+import HomePage from './HomePage';
+import Signin from './Signin';
+import Signup from './Signup';
+import ForgotPassword from './ForgotPassword';
+import MainPage from '@/components/dashboard/MainPage';
+import SettingsPage from '@/components/dashboard/settings/Settings';
+import NotFound from './NotFound';
 
 function Dashboard() {
   return (
