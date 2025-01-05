@@ -10,9 +10,6 @@
     "prettier": "prettier --write .",
     "preview": "vite preview"
   },
-  "engines": {
-    "node": ">=14.0.0"
-  },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
     "@radix-ui/react-avatar": "^1.1.2",
