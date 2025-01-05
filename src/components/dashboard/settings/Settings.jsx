@@ -21,6 +21,7 @@ import ProfileHeader from './ProfileHeader';
 import Appearance from './Appearance';
 import Password from './Password';
 import { useTranslation } from 'react-i18next';
+import Privacy from './Privacy';
 
 function SettingsPage() {
   const { t } = useTranslation();
@@ -68,7 +69,7 @@ function SettingsPage() {
               <Badge className="ms-1.5">{t('new')}</Badge>
             </TabsTrigger>
             <TabsTrigger
-              value="tab-4"
+              value="privacy"
               className="relative after:absolute after:inset-x-0 after:bottom-0 after:-mb-1 after:h-0.5 hover:bg-accent hover:text-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:after:bg-primary data-[state=active]:hover:bg-accent"
             >
               <Lock
@@ -130,15 +131,13 @@ function SettingsPage() {
         <TabsContent value="appearance" className="max-w-2xl">
           <Appearance />
         </TabsContent>
-        <TabsContent value="tab-4">
-          <p className="pt-1 text-center text-xs text-muted-foreground">
-            Content for Tab 4
-          </p>
+        <TabsContent value="privacy" className="max-w-2xl">
+          <Privacy />
         </TabsContent>
         <TabsContent value="password" className="max-w-2xl">
           <Password />
         </TabsContent>
-        <TabsContent value="tab-5">
+        <TabsContent value="">
           <p className="pt-1 text-center text-xs text-muted-foreground">
             Content for Tab 5
           </p>

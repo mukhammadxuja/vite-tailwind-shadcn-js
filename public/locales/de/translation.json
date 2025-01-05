@@ -36,5 +36,18 @@
   "fontStyle": "Schriftstil",
   "fontStyleDescription": "Wählen Sie einen Schriftstil, der Ihren Vorlieben entspricht.",
   "languagesTitle": "Sprachen",
-  "languagesDescription": "Wählen Sie eine Sprache, die Ihren Vorlieben entspricht."
+  "languagesDescription": "Wählen Sie eine Sprache, die Ihren Vorlieben entspricht.",
+  "currentPassword": "Aktuelles Passwort",
+  "newPassword": "Neues Passwort",
+  "update": "Aktualisieren",
+  "updating": "Aktualisieren...",
+  "profileVisibility": "Profil-Sichtbarkeit",
+  "profileVisibilityDescription": "Profil nur für Verbindungen oder bestimmte Benutzer sichtbar.",
+  "activityStatus": "Aktivitätsstatus",
+  "activityStatusDescription": "Umschalten, um den Online-Status für andere anzuzeigen oder zu verbergen.",
+  "collectedData": "Gesammelte Daten",
+  "collectedDataDescription": "Option, alle Benutzerdaten in einem strukturierten Format zu exportieren/herunterladen.",
+  "clearAllData": "Alle Daten löschen",
+  "deleteAccount": "Konto löschen",
+  "deleteAccountDescription": "Option, das Konto und alle zugehörigen Daten dauerhaft zu löschen."
 }

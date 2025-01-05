@@ -11,8 +11,10 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
+import { useTranslation } from 'react-i18next';
 
 function Password() {
+  const { t } = useTranslation();
   const [error, setError] = useState('');
   const [email, setEmail] = useState('');
   const {
@@ -90,12 +92,12 @@ function Password() {
 
         <div>
           <Label required htmlFor="currentPassword">
-            Current Password
+            {t('currentPassword')}
           </Label>
           <Input
             id="currentPassword"
             type="password"
-            placeholder="Current password"
+            placeholder="********"
             {...register('currentPassword', {
               required: 'Current password is required',
             })}
@@ -108,11 +110,11 @@ function Password() {
         </div>
 
         <div>
-          <Label htmlFor="newPassword">New Password</Label>
+          <Label htmlFor="newPassword">{t('newPassword')}</Label>
           <Input
             id="newPassword"
             type="password"
-            placeholder="New password"
+            placeholder="********"
             {...register('newPassword')}
           />
         </div>
@@ -124,10 +126,10 @@ function Password() {
             variant="secondary"
             onClick={handleCancel}
           >
-            Cancel
+            {t('cancel')}
           </Button>
           <Button type="submit" disabled={isSubmitting || !newPassword}>
-            {isSubmitting ? 'Updating...' : 'Update Password'}
+            {isSubmitting ? `${t('updating')}` : `${t('update')}`}
           </Button>
         </div>
       </form>

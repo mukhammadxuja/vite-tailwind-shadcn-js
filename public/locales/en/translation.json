@@ -36,5 +36,18 @@
   "fontStyle": "Font style",
   "fontStyleDescription": "Choose a font style that suits your preference.",
   "languagesTitle": "Languages",
-  "languagesDescription": "Choose a language that suits your preference."
+  "languagesDescription": "Choose a language that suits your preference.",
+  "currentPassword": "Current Password",
+  "newPassword": "New Password",
+  "update": "Update",
+  "updating": "Updating...",
+  "profileVisibility": "Profile Visibility",
+  "profileVisibilityDescription": "Profile visible only to connections or specific users.",
+  "activityStatus": "Activity Status",
+  "activityStatusDescription": "Toggle to show or hide online status from others.",
+  "collectedData": "Collected Data",
+  "collectedDataDescription": "Option to export/download all user data in a structured format.",
+  "clearAllData": "Clear all data",
+  "deleteAccount": "Delete Account",
+  "deleteAccountDescription": "Option to delete the account and all associated data permanently."
 }
