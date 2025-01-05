@@ -4,24 +4,19 @@ import { Badge } from '@/components/ui/badge';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
-  Box,
-  ChartLine,
   ChartPie,
   KeyRound,
   Lock,
-  PanelsTopLeft,
-  Settings,
   Share2,
   UserRoundPen,
-  UsersRound,
   WandSparkles,
 } from 'lucide-react';
-import General from './general';
-import ProfileHeader from './ProfileHeader';
-import Appearance from './Appearance';
-import Password from './Password';
 import { useTranslation } from 'react-i18next';
+import General from './General';
+import Appearance from './Appearance';
 import Privacy from './Privacy';
+import Password from './Password';
+import ProfileHeader from './ProfileHeader';
 
 function SettingsPage() {
   const { t } = useTranslation();
