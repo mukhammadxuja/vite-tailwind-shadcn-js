@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '@/firebase';
+import { Loader } from 'lucide-react';
 
 const ProtectedRoute = ({ children }) => {
   const [loading, setLoading] = useState(true);
@@ -24,7 +25,7 @@ const ProtectedRoute = ({ children }) => {
   if (loading) {
     return (
       <div className="bg-background h-screen w-full flex items-center justify-center">
-        Loading...
+        <Loader className="w-6 h-6 animate-spin" />
       </div>
     );
   }
