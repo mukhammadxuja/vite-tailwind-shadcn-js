@@ -20,13 +20,12 @@ import {
 import { useAuth } from '@/hooks/use-auth';
 import AddTaskDialog from './dialog/AddTask';
 import { useTodos } from '@/hooks/use-todos';
+import { Progress } from '../ui/progress';
 
 function MainPage() {
   const { user } = useAuth();
-  const { todos, loading } = useTodos(user?.uid);
+  const { todos, loading, deleteTodo } = useTodos(user?.uid);
   const [open, setOpen] = useState(false);
-
-  console.log('todos', todos);
 
   return (
     <div className="space-y-2 md:space-y-4 my-4">
@@ -41,7 +40,11 @@ function MainPage() {
         </div>
         <Button
           onClick={() => setOpen(true)}
-          disabled={!user?.emailVerified && user?.isAnonymous}
+          title={
+            user?.isAnonymous &&
+            "You can't add task because it's anonymous mode."
+          }
+          disabled={user?.isAnonymous}
           className="flex items-center gap-2"
         >
           <PlusCircle className="w-4 h-4" />
@@ -66,28 +69,21 @@ function MainPage() {
               </small>
             </div>
             <div className="flex-1 flex items-center gap-2 md:gap-4">
-              <Button
-                size="sm"
-                variant="outline"
-                className="flex items-center gap-2"
+              <div
+                className={`px-5 py-1 rounded-lg border ${
+                  todo.isCompleted
+                    ? 'border-green-500 text-green-500'
+                    : 'border-red-500 text-red-500'
+                }`}
               >
-                <Paperclip className="w-4 h-4" />
-                <span>7</span>
-              </Button>
-              <Button
-                size="sm"
-                variant="secondary"
-                className="bg-purple-200 hover:bg-purple-200/80"
-              >
+                {todo.isCompleted ? 'Completed' : 'Not Completed'}
+              </div>
+              <div className="px-5 py-1 rounded-lg bg-purple-200 hover:bg-purple-200/80 dark:bg-purple-500 dark:text-white">
                 {todo.status}
-              </Button>
-              <Button
-                size="sm"
-                variant="secondary"
-                className="bg-lime-200 hover:bg-lime-200/80"
-              >
+              </div>
+              <div className="px-5 py-1 rounded-lg bg-red-200 hover:bg-red-200/80 dark:bg-red-500 dark:text-white">
                 {todo.priority}
-              </Button>
+              </div>
               <div className="flex items-center gap-1">
                 <Clock className="w-3 h-3" />
                 <span className="text-sm">12 days left</span>
@@ -101,7 +97,9 @@ function MainPage() {
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuItem>Edit</DropdownMenuItem>
-                <DropdownMenuItem>Delete</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => deleteTodo(todo.id)}>
+                  Delete
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

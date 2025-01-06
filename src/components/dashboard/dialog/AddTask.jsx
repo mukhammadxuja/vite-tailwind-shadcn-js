@@ -7,8 +7,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { useState } from 'react';
-import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -44,6 +42,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useTodos } from '@/hooks/use-todos';
 import { useAuth } from '@/hooks/use-auth';
+import { toast } from 'sonner';
 
 const formSchema = z.object({
   title: z.string(),
@@ -56,7 +55,7 @@ const formSchema = z.object({
 
 function AddTaskDialog({ open, setOpen }) {
   const { user } = useAuth();
-  const { todos, loading, addTodo, fetchTodos } = useTodos(user?.uid);
+  const { todos, loading, addTodo, deleteTodo } = useTodos(user?.uid);
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -64,26 +63,25 @@ function AddTaskDialog({ open, setOpen }) {
     },
   });
 
-  const { reset } = form;
+  const {
+    reset,
+    formState: { isSubmitting },
+  } = form;
 
   async function onSubmit(values) {
+    setTimeout(() => setOpen(false), 500);
     try {
       await addTodo({
         ...values,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       });
-      toast(
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(values, null, 2)}</code>
-        </pre>
-      );
-      await fetchTodos();
-      setOpen(false);
+
       reset();
+      toast('New todo added successfully');
     } catch (error) {
       console.error('Form submission error', error);
-      toast.error('Failed to submit the form. Please try again.');
+      toast('Failed to submit the form. Please try again.');
     }
   }
 
@@ -139,7 +137,10 @@ function AddTaskDialog({ open, setOpen }) {
                             </Button>
                           </FormControl>
                         </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0" align="start">
+                        <PopoverContent
+                          className="w-fit p-0"
+                          align="start"
+                        >
                           <Calendar
                             mode="single"
                             selected={field.value}
@@ -255,7 +256,9 @@ function AddTaskDialog({ open, setOpen }) {
                 >
                   Cancel
                 </Button>
-                <Button type="submit">Add Task</Button>
+                <Button type="submit">
+                  {isSubmitting ? 'Adding Task...' : 'Add Task'}
+                </Button>
               </div>
             </form>
           </Form>

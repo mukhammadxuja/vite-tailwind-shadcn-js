@@ -97,8 +97,18 @@ export default function Navbar() {
     <>
       <header className="animate-fade-in fixed left-0 top-0 z-50 w-full -translate-y-4 border-b opacity-0 backdrop-blur-md [--animation-delay:600ms]">
         <div className="container flex h-14 items-center justify-between">
-          <Link className="text-md flex items-center" to="/">
-            Swordfish Boilerplate 
+          <Link to="/" className="flex items-center gap-2 w-fit">
+            <img
+              src="/assets/logo-white.svg"
+              className="mx-auto w-4 h-4 hidden dark:block"
+            />
+            <img
+              src="/assets/logo-black.svg"
+              className="mx-auto w-4 h-4 block dark:hidden"
+            />
+            <span className="whitespace-nowrap text-sm font-semibold dark:text-white">
+              Swordfish
+            </span>
           </Link>
 
           <div className="ml-auto flex h-full items-center">
@@ -139,7 +149,7 @@ export default function Navbar() {
         >
           <div className="container flex h-14 items-center justify-between">
             <Link className="text-md flex items-center" to="/">
-              cnxb UI
+              Swordfish UI
             </Link>
 
             <button

@@ -238,7 +238,11 @@ function Appearance() {
             {t('languagesDescription')}
           </p>
         </div>
-        <Select onValueChange={changeLanguage} value={i18n.language}>
+        <Select
+          onValueChange={changeLanguage}
+          value={i18n.language}
+          defaultValue="en"
+        >
           <SelectTrigger className="w-40">
             <SelectValue placeholder={t('languagesTitle')} />
           </SelectTrigger>

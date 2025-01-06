@@ -16,39 +16,76 @@ import { Link } from 'react-router-dom';
 
 const tiles = [
   {
-    icon: <HeartHandshake className="w-full h-full" />,
+    icon: (
+      <img
+        src="/assets/tools/react.svg"
+        className="w-full h-full"
+        alt="React js logo svg"
+      />
+    ),
     bg: (
-      <div className="absolute left-1/2 top-1/2 w-1/2 h-1/2 -translate-x-1/2 -translate-y-1/2 overflow-visible rounded-full bg-gradient-to-r from-orange-600 via-rose-600 to-violet-600 opacity-70 blur-[20px]"></div>
+      <div className="absolute left-1/2 top-1/2 w-1/2 h-1/2 -translate-x-1/2 -translate-y-1/2 overflow-visible rounded-full bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 opacity-70 blur-[20px]"></div>
+    ),
+  },
+
+  {
+    icon: (
+      <img
+        src="/assets/tools/tailwind.svg"
+        className="w-full h-full"
+        alt="Tailwind css logo svg"
+      />
+    ),
+    bg: (
+      <div className="absolute left-1/2 top-1/2 w-1/2 h-1/2 -translate-x-1/2 -translate-y-1/2 overflow-visible rounded-full bg-gradient-to-r from-teal-400 via-cyan-500 to-blue-500 opacity-70 blur-[20px]"></div>
     ),
   },
   {
-    icon: <Globe className="w-full h-full" />,
+    icon: (
+      <img
+        src="/assets/tools/shadcn.svg"
+        className="w-[90%] h-[90%]"
+        alt="shadcn ui logo svg"
+      />
+    ),
     bg: (
-      <div className="absolute left-1/2 top-1/2 w-1/2 h-1/2 -translate-x-1/2 -translate-y-1/2 overflow-visible rounded-full bg-gradient-to-r from-orange-600 via-rose-600 to-violet-600 opacity-70 blur-[20px]"></div>
+      <div className="absolute left-1/2 top-1/2 w-1/2 h-1/2 -translate-x-1/2 -translate-y-1/2 overflow-visible rounded-full bg-gradient-to-r from-gray-800 via-gray-600 to-gray-400 opacity-70 blur-[20px]"></div>
     ),
   },
   {
-    icon: <File className="w-full h-full" />,
+    icon: (
+      <img
+        src="/assets/tools/firebase.svg"
+        className="w-full h-full"
+        alt="Firebase logo svg"
+      />
+    ),
     bg: (
-      <div className="absolute left-1/2 top-1/2 w-1/2 h-1/2 -translate-x-1/2 -translate-y-1/2 overflow-visible rounded-full bg-gradient-to-r from-green-500 via-teal-500 to-emerald-600 opacity-70 blur-[20px]"></div>
+      <div className="absolute left-1/2 top-1/2 w-1/2 h-1/2 -translate-x-1/2 -translate-y-1/2 overflow-visible rounded-full bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 opacity-70 blur-[20px]"></div>
     ),
   },
   {
-    icon: <Shield className="w-full h-full" />,
+    icon: (
+      <img
+        src="/assets/tools/lucide.svg"
+        className="w-full h-full"
+        alt="Lucide logo svg"
+      />
+    ),
     bg: (
-      <div className="absolute left-1/2 top-1/2 w-1/2 h-1/2 -translate-x-1/2 -translate-y-1/2 overflow-visible rounded-full bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 opacity-70 blur-[20px]"></div>
+      <div className="absolute left-1/2 top-1/2 w-1/2 h-1/2 -translate-x-1/2 -translate-y-1/2 overflow-visible rounded-full bg-gradient-to-r from-yellow-400 via-orange-500 to-orange-600 opacity-70 blur-[20px]"></div>
     ),
   },
   {
-    icon: <Rss className="w-full h-full" />,
-    bg: (
-      <div className="absolute left-1/2 top-1/2 w-1/2 h-1/2 -translate-x-1/2 -translate-y-1/2 overflow-visible rounded-full bg-gradient-to-r from-orange-600 via-rose-600 to-violet-600 opacity-70 blur-[20px]"></div>
+    icon: (
+      <img
+        src="/assets/tools/javascript.svg"
+        className="w-full h-full"
+        alt="js logo svg"
+      />
     ),
-  },
-  {
-    icon: <BarChart className="w-full h-full" />,
     bg: (
-      <div className="absolute left-1/2 top-1/2 w-1/2 h-1/2 -translate-x-1/2 -translate-y-1/2 overflow-visible rounded-full bg-gradient-to-r from-gray-600 via-gray-500 to-gray-400 opacity-70 blur-[20px]"></div>
+      <div className="absolute left-1/2 top-1/2 w-1/2 h-1/2 -translate-x-1/2 -translate-y-1/2 overflow-visible rounded-full bg-gradient-to-r from-yellow-400 via-orange-500 to-orange-600 opacity-70 blur-[20px]"></div>
     ),
   },
 ];
@@ -169,8 +206,15 @@ export default function CallToActionSection() {
               ))}
             </Marquee>
             <div className="absolute z-10">
-              <div className="mx-auto w-20 h-20 rounded-[2rem] border bg-white/10 p-3 shadow-2xl backdrop-blur-md lg:w-32 lg:h-32 dark:bg-black/10">
-                <HeartHandshake className="mx-auto  text-black w-full h-full dark:text-white" />
+              <div className="flex items-center justify-center mx-auto w-20 h-20 rounded-[2rem] border bg-white/10 p-3 shadow-2xl backdrop-blur-md lg:w-32 lg:h-32 dark:bg-black/10">
+                <img
+                  src="/assets/logo-white.svg"
+                  className="w-[80%] h-[80%] animate-pulse hidden dark:block"
+                />
+                <img
+                  src="/assets/logo-black.svg"
+                  className="w-[80%] h-[80%] animate-pulse block dark:hidden"
+                />
               </div>
               <div className="text-primary z-10 mt-4 flex flex-col items-center text-center">
                 <h1 className="text-3xl font-bold lg:text-4xl">

@@ -6,29 +6,35 @@ import {
   updateDoc,
   deleteDoc,
   doc,
+  onSnapshot,
 } from 'firebase/firestore';
 import { db } from '@/firebase';
+import { toast } from 'sonner';
 
 export const useTodos = (userId) => {
   const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchTodos = async () => {
+  const fetchTodos = () => {
     setLoading(true);
     const todosCollection = collection(db, `users/${userId}/todos`);
-    const snapshot = await getDocs(todosCollection);
-    const todosList = snapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-    setTodos(todosList);
-    setLoading(false);
+    const unsubscribe = onSnapshot(todosCollection, (snapshot) => {
+      const todosList = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setTodos(todosList);
+      setLoading(false);
+    });
+
+    return unsubscribe;
   };
 
   const addTodo = async (todo) => {
     const todosCollection = collection(db, `users/${userId}/todos`);
     await addDoc(todosCollection, todo);
-    fetchTodos(); // Refresh todos
+    toast('Todo added successfully.');
+    fetchTodos();
   };
 
   const updateTodo = async (id, updatedData) => {
@@ -40,12 +46,16 @@ export const useTodos = (userId) => {
   const deleteTodo = async (id) => {
     const todoDoc = doc(db, `users/${userId}/todos`, id);
     await deleteDoc(todoDoc);
+    toast('Todo deleted successfully.');
     fetchTodos(); // Refresh todos
   };
 
   useEffect(() => {
-    if (userId) fetchTodos();
+    if (userId) {
+      const unsubscribe = fetchTodos();
+      return () => unsubscribe();
+    }
   }, [userId]);
 
-  return { todos, loading, addTodo, updateTodo, deleteTodo, fetchTodos };
+  return { todos, loading, addTodo, updateTodo, deleteTodo };
 };

@@ -9,10 +9,23 @@ import { ChevronLeft } from 'lucide-react';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { useTranslation } from 'react-i18next';
 
 const Signin = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  };
 
   const {
     register,
@@ -52,15 +65,28 @@ const Signin = () => {
       >
         <>
           <ChevronLeft className="mr-2 size-4" />
-          Back
+          {t('back')}
         </>
       </Link>
+      <Select
+        onValueChange={changeLanguage}
+        value={i18n.language}
+        defaultValue="en"
+      >
+        <SelectTrigger className="absolute right-4 top-4 md:right-8 md:top-8 w-32">
+          <SelectValue placeholder={t('languagesTitle')} />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="en">English</SelectItem>
+          <SelectItem value="de">German</SelectItem>
+        </SelectContent>
+      </Select>
       <div className="mx-auto flex w-full flex-col justify-center gap-6 sm:w-[350px]">
         <div className="flex flex-col gap-2 text-center">
           <h1 className="text-2xl font-semibold tracking-tight">
-            Welcome back
+            {t('signInTitle')}
           </h1>
-          <p className="text-muted-foreground text-sm">Login to your account</p>
+          <p className="text-muted-foreground text-sm">{t('signInDesc')}</p>
         </div>
         <form
           onSubmit={handleSubmit(handleSignIn)}
@@ -76,7 +102,7 @@ const Signin = () => {
             <Input
               type="email"
               id="email"
-              placeholder="Enter your email"
+              placeholder="example@gmail.com"
               {...register('email', { required: 'Email is required' })}
               className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
@@ -100,14 +126,14 @@ const Signin = () => {
                   to="/forgot-password"
                   className="hover:text-brand underline underline-offset-4"
                 >
-                  Forgot password?
+                  {t('forgotPassword')}
                 </Link>
               </p>
             </div>
             <Input
               type="password"
               id="password"
-              placeholder="Enter your password"
+              placeholder="********"
               {...register('password', { required: 'Password is required' })}
               className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
@@ -118,7 +144,7 @@ const Signin = () => {
             )}
           </div>
           <Button type="submit" className="w-full">
-            {isSubmitting ? 'Signing in...' : 'Sign In with Email'}
+            {isSubmitting ? 'Signing in...' : `${t('signinButton')}`}
           </Button>
 
           {error && (
@@ -131,7 +157,7 @@ const Signin = () => {
           </div>
           <div className="relative flex justify-center text-xs uppercase">
             <span className="bg-background text-muted-foreground px-2">
-              Or continue with
+              {t('or')}
             </span>
           </div>
         </div>
@@ -141,14 +167,14 @@ const Signin = () => {
           variant="secondary"
         >
           <img className="w-5 h-5" src="/assets/ghost.png" alt="Ghost png" />
-          Continue as Guest
+          {t('signinButtonGhost')}
         </Button>
         <p className="text-muted-foreground px-8 text-center text-sm">
           <Link
             to="/signup"
             className="hover:text-brand underline underline-offset-4"
           >
-            Don&apos;t have an account? Sign Up
+            {t('doNotHaveProfile')}
           </Link>
         </p>
       </div>

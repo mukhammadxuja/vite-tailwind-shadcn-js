@@ -72,13 +72,17 @@ export default function Footer() {
       <div className="mx-auto w-full max-w-screen-xl xl:pb-2">
         <div className="gap-4 p-4 px-8 py-16 sm:pb-16 md:flex md:justify-between">
           <div className="mb-12 flex flex-col gap-4">
-            <Link to="/" className="flex items-center gap-2">
+            <Link to="/" className="flex items-center gap-2 w-fit">
               <img
-                src="https://nyxbui.design/icon.png"
-                className="text-primary size-8"
+                src="/assets/logo-white.svg"
+                className="mx-auto w-5 h-5 animate-pulse hidden dark:block"
               />
-              <span className="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">
-                Swordfish Boilerplate
+              <img
+                src="/assets/logo-black.svg"
+                className="mx-auto w-5 h-5 animate-pulse block dark:hidden"
+              />
+              <span className="whitespace-nowrap text-2xl font-semibold dark:text-white">
+                Swordfish
               </span>
             </Link>
             <p className="max-w-xs">UI Library for Design Engineers</p>

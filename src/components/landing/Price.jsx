@@ -19,8 +19,8 @@ const demoPrices = [
       '5 projects limit',
       'Access to basic AI tools',
     ],
-    monthlyPrice: 1000,
-    yearlyPrice: 10000,
+    monthlyPrice: 0,
+    yearlyPrice: 0,
     isMostPopular: false,
   },
   {
@@ -34,8 +34,8 @@ const demoPrices = [
       'Access to all AI tools',
       'Custom integrations',
     ],
-    monthlyPrice: 2000,
-    yearlyPrice: 20000,
+    monthlyPrice: 0,
+    yearlyPrice: 0,
     isMostPopular: true,
   },
   {
@@ -51,8 +51,8 @@ const demoPrices = [
       'Custom integrations',
       'Data security and compliance',
     ],
-    monthlyPrice: 5000,
-    yearlyPrice: 50000,
+    monthlyPrice: 0,
+    yearlyPrice: 0,
     isMostPopular: false,
   },
   {
@@ -67,8 +67,8 @@ const demoPrices = [
       'Custom integrations',
       'Highest data security and compliance',
     ],
-    monthlyPrice: 8000,
-    yearlyPrice: 80000,
+    monthlyPrice: 0,
+    yearlyPrice: 0,
     isMostPopular: false,
   },
 ];

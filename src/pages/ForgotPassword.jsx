@@ -8,6 +8,14 @@ import { cn } from '@/lib/utils';
 import { ChevronLeft } from 'lucide-react';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { useTranslation } from 'react-i18next';
 
 const ForgotPassword = () => {
   const {
@@ -17,6 +25,11 @@ const ForgotPassword = () => {
   } = useForm();
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+  const { t, i18n } = useTranslation();
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  };
 
   const onSubmit = async (data) => {
     setMessage('');
@@ -40,14 +53,28 @@ const ForgotPassword = () => {
       >
         <>
           <ChevronLeft className="mr-2 size-4" />
-          Back
+          {t('back')}
         </>
       </Link>
+
+      <Select
+        onValueChange={changeLanguage}
+        value={i18n.language}
+        defaultValue="en"
+      >
+        <SelectTrigger className="absolute right-4 top-4 md:right-8 md:top-8 w-32">
+          <SelectValue placeholder={t('languagesTitle')} />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="en">English</SelectItem>
+          <SelectItem value="de">German</SelectItem>
+        </SelectContent>
+      </Select>
 
       <div className="mx-auto flex w-full flex-col justify-center gap-4 md:gap-6 sm:w-[350px]">
         <div className="flex flex-col gap-2 text-center">
           <h1 className="text-2xl font-semibold tracking-tight">
-            Reset Password
+            {t('resetEmailTitle')}
           </h1>
           {message && (
             <p className="text-sm text-primary text-center mb-4">
@@ -91,7 +118,7 @@ const ForgotPassword = () => {
 
           <div className="space-y-1">
             <Button type="submit" className="w-full" disabled={isSubmitting}>
-              {isSubmitting ? 'Sending...' : 'Send Reset Link'}
+              {isSubmitting ? 'Sending...' : `${t('resetEmailBtn')}`}
             </Button>
           </div>
         </form>
@@ -100,7 +127,7 @@ const ForgotPassword = () => {
             to="/signup"
             className="hover:text-brand underline underline-offset-4"
           >
-            Don&apos;t have an account? Sign Up
+            {t('doNotHaveProfile')}
           </Link>
         </p>
       </div>

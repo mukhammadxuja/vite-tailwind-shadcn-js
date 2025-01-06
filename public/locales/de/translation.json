@@ -12,6 +12,25 @@
   "insights": "Einblicke",
   "share": "Teilen",
 
+  "back": "Zurück",
+  "signInTitle": "Willkommen zurück",
+  "signInDesc": "Einloggen auf Ihr Konto",
+  "forgotPassword": "Passwort vergessen",
+  "signinButton": "Mit E-Mail anmelden",
+  "or": "Oder fortfahren mit",
+  "signinButtonGhost": "Weiter als Gast",
+  "doNotHaveProfile": "Haben Sie kein Konto? Registrieren Sie sich",
+
+  "signUpTitle": "Willkommen bei Swordfish",
+  "signUpDesc": "Erstellen Sie ein Konto",
+  "strength": "Passwortstärke:",
+  "signupBtn": "Registrieren",
+  "signupWitGoogleBtn": "Mit Google registrieren",
+  "alreadyHave": "Haben Sie bereits ein Konto? Anmelden",
+
+  "resetEmailTitle": "Passwort zurücksetzen",
+  "resetEmailBtn": "Reset-Link senden",
+
   "displayName": "Anzeigename",
   "johnDoe": "John Doe",
   "profession": "Beruf",
